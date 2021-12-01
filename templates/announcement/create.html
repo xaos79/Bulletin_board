@@ -1,0 +1,12 @@
+{% extends 'default.html' %}
+{% block title %}Create{% endblock %}
+{% block content %}
+<h1>Создать новое объявление</h1>
+<p>Пожалуста, заполните нижеприведенные поля</p>
+<form method="post">
+    {% csrf_token %}
+    {{ form.media }}
+    {{ form.as_p }}
+    <input type="submit" value="опубликовать">
+</form>
+{% endblock %}

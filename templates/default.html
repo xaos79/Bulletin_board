@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <style>
+   li {
+    list-style-type: none; /* Убираем маркеры */
+    display: inline;
+    padding-right: 5px;
+   }
+   ul {
+    margin-left: 0; /* Отступ слева в браузере IE и Opera */
+    padding-left: 0; /* Отступ слева в браузере Firefox, Safari, Chrome */
+   }
+
+  </style>
+</head>
+<body>
+<ul>
+    {% if request.user.is_authenticated %}
+        <li>Добро пожаловать, {{ request.user.username }}</li>
+        <li><a href="{% url 'account_logout' %}">Выйти</a></li>
+        <li><a href="{% url 'create' %}">Создать объвление</a></li>
+        <li><a href="{% url 'responds' %}">Отклики</a></li>
+    {% else %}
+        <li><a href="{% url 'account_login' %}">Войти</a></li>
+        <li><a href="{% url 'account_signup' %}">Зарегистрироваться</a></li>
+    {% endif %}
+        <li><a href="{% url 'home' %}">На главную</a></li>
+</ul>
+<hr>
+{% block content %}
+{% endblock %}
+
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+</body>
+</html>

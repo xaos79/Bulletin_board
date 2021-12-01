@@ -1,0 +1,23 @@
+{% extends 'default.html' %}
+{% block title %}Detail{% endblock %}
+{% block content %}
+<h2>{{ news.name }}</h2>
+<p>Автор: {{ news.user.username }}</p>
+<p>Создано: {{ news.create }}</p>
+<p>Изменено: {{ news.update }}</p>
+<p>Категория: {{ news.category.name }}</p>
+<p>{{ news.content|safe }}</p>
+{% if request.user.is_authenticated %}
+    {% if request.user != news.user %}
+        <p>Оставить отклик на объявление:</p>
+        <form method="post" action="{% url 'add_respond' news.id %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Оставить">
+        </form>
+    {% else %}
+        <p><a href="{% url 'update' news.id %}">Редактирвоать объявение</a></p>
+        <p><a href="{% url 'delete' news.id %}">Удалить объявление</a></p>
+    {% endif %}
+{% endif %}
+{% endblock %}

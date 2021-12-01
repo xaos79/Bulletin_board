@@ -1,0 +1,17 @@
+{% extends 'default.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+{% if news %}
+    <h2>Объявления:</h2>
+    {% for i in news %}
+        <div >
+            <h3><a href="{% url 'detail' i.id %}">{{ i.name }}</a></h3>
+            <p>Автор: {{ i.user.username }}</p>
+            <p>Категория: {{ i.category.name }}</p>
+            <hr>
+        </div>
+    {% endfor %}
+{% else %}
+    <h2>Записей пока нет!</h2>
+{% endif %}
+{% endblock %}

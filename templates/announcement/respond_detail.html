@@ -1,0 +1,8 @@
+{% extends 'default.html' %}
+{% block title %}Respond_detail{% endblock %}
+{% block content %}
+<h2>Отклик на ваше объявление: <a href="{% url 'detail' respond.announcement.id %}">{{ respond.announcement }}</a></h2>
+<p>Автор: {{ respond.user.username }}</p>
+<p>Создано: {{ respond.create }}</p>
+<p>{{ respond.text }}</p>
+{% endblock %}

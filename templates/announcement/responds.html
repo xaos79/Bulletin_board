@@ -1,0 +1,39 @@
+{% extends 'default.html' %}
+{% block title %}Responds{% endblock %}
+{% block content %}
+{% if responds %}
+    <h2>Отклики на ваши объявления:</h2>
+    <table style="width:100%">
+        <tr>
+            <td>
+                <h4>Отфильтровать по вашим объявлениям</h4>
+            </td>
+        </tr>
+        <tr>
+            <td style="width:20%">
+                <p><a href="{% url 'responds' %}">Все объявления</a></p>
+                {% for i in announcement %}
+                    <p><a href="{% url 'responds_announcement' i.id %}">{{ i.name }}</a></p>
+                {% endfor %}
+            </td>
+            <td>
+                {% for respond in responds %}
+                    <div >
+                        <h3><a href="{% url 'respond_detail' respond.id %}">Отклик на объявление: {{ respond.announcement }}</a></h3>
+                        <p>От {{ respond.create }}</p>
+                        <p>Автор: {{ respond.user.username }}</p>
+                        {% if not respond.accept %}
+                        <p><a href="{% url 'accept_respond' respond.id %}">Принять</a>
+                        <a href="{% url 'delete_respond' respond.id %}">Удалить</a></p>
+                        {% endif %}
+                        <hr>
+                    </div>
+                {% endfor %}
+            </td>
+        </tr>
+    </table>
+
+{% else %}
+    <h2>На ваши объявления пока нет откликов.</h2>
+{% endif %}
+{% endblock %}
